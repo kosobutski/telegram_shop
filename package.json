@@ -1,0 +1,31 @@
+{
+    "name": "telegram_shop",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "type": "module",
+    "scripts": {
+        "watch": "tsc -w",
+        "dev": "nodemon dist/index.js",
+        "build": "tsc",
+        "start": "node dist/index.js"
+    },
+    "devDependencies": {
+        "@types/node": "^24.10.0",
+        "nodemon": "^3.1.11",
+        "prettier": "^3.6.2",
+        "prettier-plugin-jsdoc": "^1.5.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "@grammyjs/hydrate": "^1.6.0",
+        "@prisma/client": "^6.19.0",
+        "dotenv": "^17.2.3",
+        "grammy": "^1.38.3",
+        "jsdom": "^27.1.0",
+        "node-fetch": "^3.3.2",
+        "pg": "^8.16.3",
+        "prisma": "^6.19.0"
+    }
+}
