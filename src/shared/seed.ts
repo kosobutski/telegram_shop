@@ -1,3 +1,4 @@
+import { Category } from "@prisma/client";
 import prisma from "./prisma.client.js";
 
 const products = [
@@ -5,43 +6,43 @@ const products = [
         name: "Футболка классическая черная",
         description: "Мягкая хлопковая футболка премиум-качества",
         price: 1999.99,
-        category: "t-shirts",
+        category: Category.tshirts,
     },
     {
         name: "Футболка оверсайз белая",
         description: "Свободная футболка модного кроя",
         price: 2299.99,
-        category: "t-shirts",
+        category: Category.tshirts,
     },
     {
         name: "Футболка с принтом",
         description: "Футболка с уникальным графическим принтом",
         price: 2499.99,
-        category: "t-shirts",
+        category: Category.tshirts,
     },
     {
         name: "Худи с капюшоном черное",
         description: "Теплое худи из футера с начесом",
         price: 4499.99,
-        category: "hoodies",
+        category: Category.hoodies,
     },
     {
         name: "Худи оверсайз серое",
         description: "Свободное худи уличного стиля",
         price: 4799.99,
-        category: "hoodies",
+        category: Category.hoodies,
     },
     {
         name: "Бейсболка унисекс",
         description: "Стильная бейсболка с регулируемой застежкой",
         price: 1299.99,
-        category: "accessories",
+        category: Category.accessoires,
     },
     {
         name: "Носки спортивные",
         description: "Комфортные носки из хлопка с поддержкой стопы",
         price: 799.99,
-        category: "accessories",
+        category: Category.accessoires,
     },
 ];
 
