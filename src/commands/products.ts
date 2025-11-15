@@ -22,7 +22,7 @@ export const productsCommand = async (ctx: CallbackQueryContext<MyContext>, cate
     outputText += "Какой товар покупаешь?";
 
     const keyboardButtonRows = products.map((product) => {
-        return InlineKeyboard.text(product.id.toString(), `buyProduct-${product.id}`);
+        return InlineKeyboard.text(product.id.toString(), `chosenProduct-${product.id}`);
     });
 
     const keyboard = InlineKeyboard.from([keyboardButtonRows, [InlineKeyboard.text("Назад к категориям", "categories")]]);

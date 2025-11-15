@@ -1,6 +1,15 @@
 import "dotenv/config";
 import { Bot, GrammyError, HttpError } from "grammy";
-import { cartCommand, categoriesCommand, menuCommand, paymentsCommand, productsCommand, StartCommand } from "./commands/index.js";
+import {
+    addToCartCommand,
+    cartCommand,
+    categoriesCommand,
+    chosenProductCommand,
+    menuCommand,
+    paymentsCommand,
+    productsCommand,
+    StartCommand,
+} from "./commands/index.js";
 import type { MyContext } from "./shared/types.js";
 import { hydrate } from "@grammyjs/hydrate";
 import { tgSuccessfulPaymentHandler } from "./commands/successful_payment_handler.js";
@@ -18,6 +27,8 @@ bot.callbackQuery("menu", (ctx) => menuCommand(ctx));
 bot.callbackQuery("categories", (ctx) => categoriesCommand(ctx));
 bot.callbackQuery("products", (ctx) => productsCommand(ctx));
 bot.callbackQuery("cart", (ctx) => cartCommand(ctx));
+bot.callbackQuery("addToCart", async (ctx) => await addToCartCommand(ctx));
+bot.callbackQuery(/^chosenProduct-\d+$/, async (ctx) => chosenProductCommand(ctx));
 bot.callbackQuery(/^buyProduct-\d+$/, async (ctx) => await paymentsCommand(ctx));
 bot.callbackQuery(/^category-(.+)$/, async (ctx) => {
     const category = ctx.match[1] as Category;
