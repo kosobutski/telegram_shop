@@ -1,9 +1,8 @@
-import type { CallbackQueryContext } from "grammy";
+import { InlineKeyboard, type CallbackQueryContext } from "grammy";
 import type { MyContext } from "../shared/types.js";
-import { backToMenuKeyboard } from "../shared/keyboards.js";
 import prisma from "../shared/prisma.client.js";
 
-export const cartCommand = async (ctx: CallbackQueryContext<MyContext>) => {
+export const removeMenuCommand = async (ctx: CallbackQueryContext<MyContext>) => {
     await ctx.answerCallbackQuery();
 
     const user = await prisma.user.findUniqueOrThrow({ where: { telegramId: ctx.from.id } });
@@ -21,12 +20,6 @@ export const cartCommand = async (ctx: CallbackQueryContext<MyContext>) => {
         },
     });
 
-    if (!cart || cart.items.length === 0) {
-        return ctx.callbackQuery.message.editText("Твоя корзина пуста", {
-            reply_markup: backToMenuKeyboard,
-        });
-    }
-
     let message = "Твоя корзина:\n\n";
     let totalPrice = 0;
 
@@ -40,11 +33,13 @@ export const cartCommand = async (ctx: CallbackQueryContext<MyContext>) => {
         message += `- Сумма: ${itemTotal} руб.\n\n`;
     });
 
-    message += `Итого: ${totalPrice} рублей.`;
+    message += `Выбери, какой товар надо удалить из корзины.`;
 
-    const keyboard = {
-        inline_keyboard: [[{ text: "Удалить товар", callback_data: "removeMenu" }], [{ text: "Назад в меню", callback_data: "menu" }]],
-    };
+    const keyboardButtonRow = cart.items.map((product, index) => {
+        return InlineKeyboard.text((index + 1).toString(), `removeFromCart-${product.id}`);
+    });
+
+    const keyboard = InlineKeyboard.from([keyboardButtonRow, [InlineKeyboard.text("Назад к корзине", "cart")]]);
 
     return ctx.callbackQuery.message.editText(message, {
         reply_markup: keyboard,

@@ -8,7 +8,9 @@ import {
     menuCommand,
     paymentsCommand,
     productsCommand,
-    StartCommand,
+    removeFromCartCommand,
+    removeMenuCommand,
+    startCommand,
 } from "./commands/index.js";
 import type { MyContext } from "./shared/types.js";
 import { hydrate } from "@grammyjs/hydrate";
@@ -18,7 +20,7 @@ import type { Category } from "@prisma/client";
 const bot = new Bot<MyContext>(process.env.BOT_TOKEN as string);
 bot.use(hydrate());
 
-bot.command("start", (ctx) => StartCommand(ctx));
+bot.command("start", (ctx) => startCommand(ctx));
 
 bot.on("pre_checkout_query", async (ctx) => await ctx.answerPreCheckoutQuery(true));
 bot.on(":successful_payment", (ctx) => tgSuccessfulPaymentHandler(ctx));
@@ -26,8 +28,10 @@ bot.on(":successful_payment", (ctx) => tgSuccessfulPaymentHandler(ctx));
 bot.callbackQuery("menu", (ctx) => menuCommand(ctx));
 bot.callbackQuery("categories", (ctx) => categoriesCommand(ctx));
 bot.callbackQuery("products", (ctx) => productsCommand(ctx));
-bot.callbackQuery("cart", (ctx) => cartCommand(ctx));
-bot.callbackQuery("addToCart", async (ctx) => await addToCartCommand(ctx));
+bot.callbackQuery("cart", async (ctx) => await cartCommand(ctx));
+bot.callbackQuery("removeMenu", async (ctx) => await removeMenuCommand(ctx));
+bot.callbackQuery(/^addToCart-\d+$/, async (ctx) => await addToCartCommand(ctx));
+bot.callbackQuery(/^removeFromCart-\d+$/, async (ctx) => await removeFromCartCommand(ctx));
 bot.callbackQuery(/^chosenProduct-\d+$/, async (ctx) => chosenProductCommand(ctx));
 bot.callbackQuery(/^buyProduct-\d+$/, async (ctx) => await paymentsCommand(ctx));
 bot.callbackQuery(/^category-(.+)$/, async (ctx) => {

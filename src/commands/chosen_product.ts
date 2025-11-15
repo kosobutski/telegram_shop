@@ -13,7 +13,7 @@ export const chosenProductCommand = async (ctx: CallbackQueryContext<MyContext>)
 
     const outputText = `Вы выбрали товар номер ${product.id}:\n\n- Название: ${product.name}\n- Описание: ${product.description}\n- Цена: ${product.price}`;
 
-    const keyboardUpperRow = new InlineKeyboard().text("Добавить в корзину", "addToCart").text("Оплатить сейчас", `buyProduct-${product.id}`);
+    const keyboardUpperRow = new InlineKeyboard().text("Добавить в корзину", `addToCart-${product.id}`).text("Оплатить сейчас", `buyProduct-${product.id}`);
 
     const keyboard = InlineKeyboard.from([...keyboardUpperRow.inline_keyboard, [InlineKeyboard.text("Назад к товарам", `category-${product.category}`)]]);
 
