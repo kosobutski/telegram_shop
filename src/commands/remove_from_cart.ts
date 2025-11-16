@@ -7,9 +7,7 @@ export const removeFromCartCommand = async (ctx: CallbackQueryContext<MyContext>
     await ctx.answerCallbackQuery();
 
     const cartItemId = parseInt(ctx.callbackQuery.data.split("-")[1]);
-    const user = await prisma.user.findUniqueOrThrow({
-        where: { telegramId: ctx.from.id },
-    });
+    const user = await prisma.user.findUniqueOrThrow({ where: { telegramId: ctx.from.id } });
 
     const deletedItem = await prisma.cartItem.delete({
         where: {

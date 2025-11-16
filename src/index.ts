@@ -6,6 +6,7 @@ import {
     categoriesCommand,
     chosenProductCommand,
     menuCommand,
+    payCartCommand,
     paymentsCommand,
     productsCommand,
     removeFromCartCommand,
@@ -30,6 +31,7 @@ bot.callbackQuery("categories", (ctx) => categoriesCommand(ctx));
 bot.callbackQuery("products", (ctx) => productsCommand(ctx));
 bot.callbackQuery("cart", async (ctx) => await cartCommand(ctx));
 bot.callbackQuery("removeMenu", async (ctx) => await removeMenuCommand(ctx));
+bot.callbackQuery("payCart", async (ctx) => await payCartCommand(ctx));
 bot.callbackQuery(/^addToCart-\d+$/, async (ctx) => await addToCartCommand(ctx));
 bot.callbackQuery(/^removeFromCart-\d+$/, async (ctx) => await removeFromCartCommand(ctx));
 bot.callbackQuery(/^chosenProduct-\d+$/, async (ctx) => chosenProductCommand(ctx));

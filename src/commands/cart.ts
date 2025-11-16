@@ -43,7 +43,11 @@ export const cartCommand = async (ctx: CallbackQueryContext<MyContext>) => {
     message += `Итого: ${totalPrice} рублей.`;
 
     const keyboard = {
-        inline_keyboard: [[{ text: "Удалить товар", callback_data: "removeMenu" }], [{ text: "Назад в меню", callback_data: "menu" }]],
+        inline_keyboard: [
+            [{ text: "Оплатить корзину", callback_data: "payCart" }],
+            [{ text: "Удалить товар", callback_data: "removeMenu" }],
+            [{ text: "Назад в меню", callback_data: "menu" }],
+        ],
     };
 
     return ctx.callbackQuery.message.editText(message, {

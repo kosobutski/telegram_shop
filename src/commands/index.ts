@@ -8,3 +8,4 @@ export * from "./chosen_product.js";
 export * from "./add_to_cart.js";
 export * from "./remove_from_cart.js";
 export * from "./remove_menu.js";
+export * from "./pay_cart.js";
